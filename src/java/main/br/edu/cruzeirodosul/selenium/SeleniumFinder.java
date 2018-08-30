@@ -19,20 +19,24 @@ public class SeleniumFinder {
         this.fluentWait = SeleniumWait.wait(instance.getDriver(), 10);
     }
 
-    public WebElement pegaElementoPelaTagENome(String tagName, String nome) {
-        List<WebElement> elements = this.pegaElementos(tagName);
+    public List<WebElement> pegaItensPelaTagENome(String tagName, String nome) {
+        List<WebElement> elementsResult = Lists.newArrayList();
 
-        for (WebElement element : elements) {
+        for (WebElement element : this.pegaItensPelaTag(tagName)) {
             if (element.getText().equalsIgnoreCase(nome)) {
-                return element;
+                elementsResult.add(element);
             }
         }
 
-        throw new NenhumItemEncontrado("Com a tag: " + tagName + " e nome: " + nome);
+        if (elementsResult.isEmpty()) {
+            throw new NenhumItemEncontrado("Com a tag: " + tagName + " e nome: " + nome);
+        }
+
+        return elementsResult;
     }
 
-    public List<WebElement> pegaElementoPelaTagEType(String tagName, String type) {
-        List<WebElement> elementsByTag = this.pegaElementos(tagName);
+    public List<WebElement> pegaItemPelaTagEType(String tagName, String type) {
+        List<WebElement> elementsByTag = this.pegaItensPelaTag(tagName);
 
         List<WebElement> elements = Lists.newArrayList();
         for (WebElement element : elementsByTag) {
@@ -43,7 +47,7 @@ public class SeleniumFinder {
         return elements;
     }
 
-    private List<WebElement> pegaElementos(String tagName) {
+    public List<WebElement> pegaItensPelaTag(String tagName) {
         List<WebElement> elements = fluentWait.until(
                 driver -> driver.findElements(By.tagName(tagName))
         );
@@ -54,7 +58,7 @@ public class SeleniumFinder {
         return elements;
     }
 
-    public WebElement getElementPeloTipoEClasseCss(String type, String cssClassName) {
+    public WebElement pegaItemPeloTipoEClasseCss(String type, String cssClassName) {
         WebElement element = fluentWait.until(
                 driver -> driver.findElement(
                         By.cssSelector(type + "[class*='" + cssClassName + "']")
@@ -68,8 +72,18 @@ public class SeleniumFinder {
         return element;
     }
 
-    public WebElement pegaElementoPelaTag(String tagname) {
-        return pegaElementos(tagname).get(0);
+    public WebElement pegaItemPeloXpath(String xpath) {
+        WebElement element = fluentWait.until(
+                driver -> driver.findElement(
+                        By.xpath(xpath)
+                )
+        );
+
+        if (element == null) {
+            throw new NenhumItemEncontrado("Com o xpath: " + xpath);
+        }
+
+        return element;
     }
 
     public void esperarPor(int segundos) {

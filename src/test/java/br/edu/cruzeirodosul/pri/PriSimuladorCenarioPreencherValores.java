@@ -11,10 +11,9 @@ public class PriSimuladorCenarioPreencherValores {
 
     @Test
     public void testAbrirSimulador() {
-        Selenium selenium = Selenium
-                .abrir("http://localhost:4200/pri/")
-                .maximizar()
-                .clicarNoPrimeiroLinkComONome("button", "Simular nota");
+        Selenium selenium = Selenium.abrir("http://localhost:4200/pri/");
+        selenium.maximizar();
+        selenium.clicarNoPrimeiroLinkComONome("button", "Simular nota");
 
         List<WebElement> inputs = selenium.pegaInputsNumericos();
 
@@ -25,19 +24,16 @@ public class PriSimuladorCenarioPreencherValores {
             input.sendKeys("0.9");
         }
 
-        Assert.assertFalse(selenium.pegaInputsNumericos().isEmpty());
-
-        selenium.removerFocus()
-                .esperarPor(1);
+        selenium.removerFocus();
+        selenium.esperarPor(1);
 
         WebElement element = selenium
-                .pegaElementoPeloTipoEClassesCss("div", "col-xs-12 alert text-center alert-success no-margin");
+                .pegaItemPeloTipoEClasseCss("div", "col-xs-12 alert text-center alert-success no-margin");
 
         Assert.assertTrue(element.getText().contains("0,32"));
 
-        selenium.clicarNoPrimeiroLinkComONome("a", "voltar")
-                .clicarNoPrimeiroLinkComONome("button", "fechar")
-                .fechar();
-
+        selenium.clicarNoPrimeiroLinkComONome("a", "voltar");
+        selenium.clicarNoPrimeiroLinkComONome("button", "fechar");
+        selenium.fechar();
     }
 }

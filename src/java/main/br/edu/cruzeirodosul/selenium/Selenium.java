@@ -26,18 +26,27 @@ public class Selenium {
     }
 
     public Selenium clicarNoPrimeiroLinkComONome(String tag, String nome) {
-        finder.pegaElementoPelaTagENome(tag, nome).click();
+        finder.pegaItensPelaTagENome(tag, nome).get(0).click();
         this.esperarPor(1);
         return this;
     }
 
     public List<WebElement> pegaInputsNumericos() {
-        return finder.pegaElementoPelaTagEType("input", "number");
+        return finder.pegaItemPelaTagEType("input", "number");
     }
 
-    public WebElement pegaElementoPeloTipoEClassesCss(String type, String classeCss) {
-        return finder.getElementPeloTipoEClasseCss(type, classeCss);
+    public WebElement pegaItemPeloTipoEClasseCss(String type, String classeCss) {
+        return finder.pegaItemPeloTipoEClasseCss(type, classeCss);
     }
+
+    public WebElement pegaItemPeloXpath(String xpath) {
+        return finder.pegaItemPeloXpath(xpath);
+    }
+
+    public List<WebElement> pegaItensPelaTagENome(String tagName, String nome) {
+        return finder.pegaItensPelaTagENome(tagName, nome);
+    }
+
 
     public Selenium fechar() {
         driver.fechar();
@@ -50,7 +59,7 @@ public class Selenium {
     }
 
     public Selenium removerFocus() {
-        finder.pegaElementoPelaTag("body").click();
+        finder.pegaItensPelaTag("body").get(0).click();
         return this;
     }
 
