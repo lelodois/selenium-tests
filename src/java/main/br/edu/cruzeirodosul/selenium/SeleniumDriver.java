@@ -11,10 +11,8 @@ public class SeleniumDriver {
 
     private ChromeDriverService service;
     private org.openqa.selenium.WebDriver driver;
-    private SistemaOperacional so;
 
-    public SeleniumDriver(SistemaOperacional so) {
-        this.so = so;
+    public SeleniumDriver() {
     }
 
     public SeleniumDriver abrir(String url) {
@@ -35,7 +33,10 @@ public class SeleniumDriver {
     }
 
     public void maximizar() {
-        driver.manage().window().maximize();
+        try {
+            driver.manage().window().maximize();
+        } catch (Exception e) {
+        }
     }
 
     public void fechar() {
@@ -55,11 +56,16 @@ public class SeleniumDriver {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
         return new File(classLoader
-                .getResource(so.name().toLowerCase() + "/chromedriver")
+                .getResource(getSo() + "/chromedriver")
                 .getFile());
     }
 
     public WebDriver getDriver() {
         return driver;
+    }
+
+    private String getSo() {
+        String so = System.getProperties().getProperty("os.name");
+        return (so.indexOf("nux") >= 0) ? "linux" : "windows";
     }
 }

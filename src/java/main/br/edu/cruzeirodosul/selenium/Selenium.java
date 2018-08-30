@@ -12,21 +12,22 @@ public class Selenium {
     private Selenium() {
     }
 
-    public static Selenium abrir(SistemaOperacional so, String url) {
+    public static Selenium abrir(String url) {
         Selenium seleniumWebDriver = new Selenium();
-        seleniumWebDriver.driver = new SeleniumDriver(so).abrir(url);
+        seleniumWebDriver.driver = new SeleniumDriver().abrir(url);
         seleniumWebDriver.finder = new SeleniumFinder(seleniumWebDriver.driver);
         return seleniumWebDriver;
     }
 
-    public void maximizar() {
+    public Selenium maximizar() {
         driver.maximizar();
+        return this;
     }
 
-    public void clicarNoBotaoComONome(String nome) {
-        finder
-                .pegaElementoPelaTagENome("button", nome)
-                .click();
+    public Selenium clicarNoPrimeiroLinkComONome(String tag, String nome) {
+        finder.pegaElementoPelaTagENome(tag, nome).click();
+        this.esperarPor(1);
+        return this;
     }
 
     public List<WebElement> pegaInputsNumericos() {
@@ -37,15 +38,22 @@ public class Selenium {
         return finder.getElementPeloTipoEClasseCss(type, classeCss);
     }
 
-    public void fechar() {
+    public Selenium fechar() {
         driver.fechar();
+        return this;
     }
 
-    public void esperarPor(int segundos) {
+    public Selenium esperarPor(int segundos) {
         finder.esperarPor(segundos);
+        return this;
     }
 
-    public void removerFocus() {
+    public Selenium removerFocus() {
         finder.pegaElementoPelaTag("body").click();
+        return this;
+    }
+
+    public SeleniumDriver getDriver() {
+        return driver;
     }
 }
