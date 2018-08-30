@@ -38,5 +38,6 @@ public class PriSimuladorCenarioPreencherValores {
         selenium.clicarNoPrimeiroLinkComONome("a", "voltar")
                 .clicarNoPrimeiroLinkComONome("button", "fechar")
                 .fechar();
+
     }
 }

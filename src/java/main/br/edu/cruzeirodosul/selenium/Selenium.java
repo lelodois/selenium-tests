@@ -1,5 +1,6 @@
 package br.edu.cruzeirodosul.selenium;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class Selenium {
         return this;
     }
 
-    public SeleniumDriver getDriver() {
-        return driver;
+    public WebDriver getWebDriver() {
+        return driver.getDriver();
     }
 }
