@@ -1,4 +1,4 @@
-# selenium-tests
+# Testes com o Selenium
 
 Aplicação java de testes que encapsula funcionalidades do seleniumApi
 
