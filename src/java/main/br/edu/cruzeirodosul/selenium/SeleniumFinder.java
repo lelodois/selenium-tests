@@ -108,7 +108,7 @@ public class SeleniumFinder {
         );
 
         if (element == null) {
-            throw new ErroNenhumItemEncontrado("Com o id: " + id);
+            throw new ErroNenhumItemEncontrado("Com o name: " + name);
         }
 
         return element;
