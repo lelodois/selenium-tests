@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class PriCenarioNavegacao {
+public class TestPriCenarioNavegacao {
 
     @Test
     public void navegar() {

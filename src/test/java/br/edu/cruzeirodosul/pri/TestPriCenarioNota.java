@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
-public class PriCenarioNota {
+public class TestPriCenarioNota {
 
     @Test
     public void verificarNota() {
