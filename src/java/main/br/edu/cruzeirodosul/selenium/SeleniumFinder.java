@@ -1,6 +1,6 @@
 package br.edu.cruzeirodosul.selenium;
 
-import br.edu.cruzeirodosul.selenium.exception.NenhumItemEncontrado;
+import br.edu.cruzeirodosul.selenium.exception.NenhumItemEncontradoErro;
 import com.google.common.collect.Lists;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,27 +16,27 @@ public class SeleniumFinder {
 
     public SeleniumFinder(SeleniumDriver instance) {
         this.instance = instance;
-        this.fluentWait = SeleniumWait.wait(instance.getDriver(), 10);
+        this.fluentWait = SeleniumWait.wait(instance.pegarWebDriver(), 10);
     }
 
-    public List<WebElement> pegaItensPelaTagENome(String tagName, String nome) {
+    public List<WebElement> pegarItensPelaTagENome(String tagName, String nome) {
         List<WebElement> elementsResult = Lists.newArrayList();
 
-        for (WebElement element : this.pegaItensPelaTag(tagName)) {
+        for (WebElement element : this.pegarItensPelaTag(tagName)) {
             if (element.getText().equalsIgnoreCase(nome)) {
                 elementsResult.add(element);
             }
         }
 
         if (elementsResult.isEmpty()) {
-            throw new NenhumItemEncontrado("Com a tag: " + tagName + " e nome: " + nome);
+            throw new NenhumItemEncontradoErro("Com a tag: " + tagName + " e nome: " + nome);
         }
 
         return elementsResult;
     }
 
-    public List<WebElement> pegaItemPelaTagEType(String tagName, String type) {
-        List<WebElement> elementsByTag = this.pegaItensPelaTag(tagName);
+    public List<WebElement> pegarItensPelaTagEType(String tagName, String type) {
+        List<WebElement> elementsByTag = this.pegarItensPelaTag(tagName);
 
         List<WebElement> elements = Lists.newArrayList();
         for (WebElement element : elementsByTag) {
@@ -47,18 +47,18 @@ public class SeleniumFinder {
         return elements;
     }
 
-    public List<WebElement> pegaItensPelaTag(String tagName) {
+    public List<WebElement> pegarItensPelaTag(String tagName) {
         List<WebElement> elements = fluentWait.until(
                 driver -> driver.findElements(By.tagName(tagName))
         );
 
         if (elements.isEmpty()) {
-            throw new NenhumItemEncontrado("Com a tag: " + tagName);
+            throw new NenhumItemEncontradoErro("Com a tag: " + tagName);
         }
         return elements;
     }
 
-    public WebElement pegaItemPeloTipoEClasseCss(String type, String cssClassName) {
+    public WebElement pegarItemPeloTipoEClasseCss(String type, String cssClassName) {
         WebElement element = fluentWait.until(
                 driver -> driver.findElement(
                         By.cssSelector(type + "[class*='" + cssClassName + "']")
@@ -66,13 +66,13 @@ public class SeleniumFinder {
         );
 
         if (element == null) {
-            throw new NenhumItemEncontrado("Com a css cass: " + cssClassName);
+            throw new NenhumItemEncontradoErro("Com a css cass: " + cssClassName);
         }
 
         return element;
     }
 
-    public WebElement pegaItemPeloXpath(String xpath) {
+    public WebElement pegarItemPeloXpath(String xpath) {
         WebElement element = fluentWait.until(
                 driver -> driver.findElement(
                         By.xpath(xpath)
@@ -80,7 +80,7 @@ public class SeleniumFinder {
         );
 
         if (element == null) {
-            throw new NenhumItemEncontrado("Com o xpath: " + xpath);
+            throw new NenhumItemEncontradoErro("Com o xpath: " + xpath);
         }
 
         return element;
@@ -88,7 +88,7 @@ public class SeleniumFinder {
 
     public void esperarPor(int segundos) {
         try {
-            SeleniumWait.wait(instance.getDriver(), segundos)
+            SeleniumWait.wait(instance.pegarWebDriver(), segundos)
                     .until(w -> w.findElement(By.id("idnaodeveexistir")));
         } catch (Throwable e) {
         }

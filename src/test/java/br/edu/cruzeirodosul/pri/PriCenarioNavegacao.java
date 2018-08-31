@@ -9,7 +9,7 @@ import java.util.List;
 public class PriCenarioNavegacao {
 
     @Test
-    public void testAbrirSimulador() {
+    public void navegar() {
         Selenium selenium = Selenium.abrir("http://localhost:4200/pri/");
         selenium.maximizar();
         this.clicarEmTodosVerMaisDetalhes(selenium);
@@ -25,7 +25,7 @@ public class PriCenarioNavegacao {
     }
 
     private void clicarEmTodosVerMaisDetalhes(Selenium selenium) {
-        List<WebElement> webElements = selenium.pegaItensPelaTagENome("span", "ver mais detalhes");
+        List<WebElement> webElements = selenium.pegarItensPelaTagENome("span", "ver mais detalhes");
         for (WebElement webElement : webElements) {
             webElement.click();
             selenium.esperarPor(1);

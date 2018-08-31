@@ -26,25 +26,25 @@ public class Selenium {
     }
 
     public Selenium clicarNoPrimeiroLinkComONome(String tag, String nome) {
-        finder.pegaItensPelaTagENome(tag, nome).get(0).click();
+        finder.pegarItensPelaTagENome(tag, nome).get(0).click();
         this.esperarPor(1);
         return this;
     }
 
-    public List<WebElement> pegaInputsNumericos() {
-        return finder.pegaItemPelaTagEType("input", "number");
+    public List<WebElement> pegarInputsNumericos() {
+        return finder.pegarItensPelaTagEType("input", "number");
     }
 
-    public WebElement pegaItemPeloTipoEClasseCss(String type, String classeCss) {
-        return finder.pegaItemPeloTipoEClasseCss(type, classeCss);
+    public WebElement pegarItemPeloTipoEClasseCss(String type, String classeCss) {
+        return finder.pegarItemPeloTipoEClasseCss(type, classeCss);
     }
 
-    public WebElement pegaItemPeloXpath(String xpath) {
-        return finder.pegaItemPeloXpath(xpath);
+    public WebElement pegarItemPeloXpath(String xpath) {
+        return finder.pegarItemPeloXpath(xpath);
     }
 
-    public List<WebElement> pegaItensPelaTagENome(String tagName, String nome) {
-        return finder.pegaItensPelaTagENome(tagName, nome);
+    public List<WebElement> pegarItensPelaTagENome(String tagName, String nome) {
+        return finder.pegarItensPelaTagENome(tagName, nome);
     }
 
 
@@ -59,11 +59,11 @@ public class Selenium {
     }
 
     public Selenium removerFocus() {
-        finder.pegaItensPelaTag("body").get(0).click();
+        finder.pegarItensPelaTag("body").get(0).click();
         return this;
     }
 
-    public WebDriver getWebDriver() {
-        return driver.getDriver();
+    public WebDriver pegarWebDriver() {
+        return driver.pegarWebDriver();
     }
 }

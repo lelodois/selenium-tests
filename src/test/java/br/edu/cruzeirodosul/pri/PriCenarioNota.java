@@ -5,16 +5,16 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
-public class PriProvaNota {
+public class PriCenarioNota {
 
     @Test
-    public void testarNota() {
+    public void verificarNota() {
         Selenium selenium = Selenium.abrir("http://localhost:4200/pri");
 
         selenium.esperarPor(1);
         selenium.clicarNoPrimeiroLinkComONome("span", "ver mais detalhes");
 
-        WebElement element = selenium.pegaItemPeloXpath(
+        WebElement element = selenium.pegarItemPeloXpath(
                 "//*[@id=\"collapse-5\"]/div/div[1]/app-pri-disciplinas/table/tbody/tr[4]/td/div/span[4]/span/u"
         );
 

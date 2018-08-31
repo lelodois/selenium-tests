@@ -18,11 +18,11 @@ public class SeleniumDriver {
     public SeleniumDriver abrir(String url) {
         service =
                 new ChromeDriverService.Builder()
-                        .usingDriverExecutable(this.getDriverExecutavel())
+                        .usingDriverExecutable(this.pegarDriverExecutavel())
                         .usingAnyFreePort()
                         .build();
 
-        this.start();
+        this.iniciar();
 
         driver =
                 new RemoteWebDriver(service.getUrl(),
@@ -44,7 +44,7 @@ public class SeleniumDriver {
         service.stop();
     }
 
-    private void start() {
+    private void iniciar() {
         try {
             service.start();
         } catch (Exception e) {
@@ -52,19 +52,19 @@ public class SeleniumDriver {
         }
     }
 
-    private File getDriverExecutavel() {
+    private File pegarDriverExecutavel() {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
         return new File(classLoader
-                .getResource(getSo() + "/chromedriver")
+                .getResource(pegarSo() + "/chromedriver")
                 .getFile());
     }
 
-    public WebDriver getDriver() {
+    public WebDriver pegarWebDriver() {
         return driver;
     }
 
-    private String getSo() {
+    private String pegarSo() {
         String so = System.getProperties().getProperty("os.name");
         return (so.indexOf("nux") >= 0) ? "linux" : "windows";
     }
