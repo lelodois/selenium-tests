@@ -1,5 +1,6 @@
 package br.edu.cruzeirodosul.selenium;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -43,10 +44,25 @@ public class Selenium {
         return finder.pegarItemPeloXpath(xpath);
     }
 
+    public WebElement pegarItemPeloName(String name) {
+        return finder.pegarItemPeloName(name);
+    }
+
+    public WebElement pegarItemPeloId(String id) {
+        return finder.pegarItemPeloId(id);
+    }
+
     public List<WebElement> pegarItensPelaTagENome(String tagName, String nome) {
         return finder.pegarItensPelaTagENome(tagName, nome);
     }
 
+    public WebElement procurarItem(By by) {
+        return this.pegarWebDriver().findElement(by);
+    }
+
+    public List<WebElement> procurarItens(By by) {
+        return this.pegarWebDriver().findElements(by);
+    }
 
     public Selenium fechar() {
         driver.fechar();

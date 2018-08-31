@@ -1,6 +1,6 @@
 package br.edu.cruzeirodosul.selenium;
 
-import br.edu.cruzeirodosul.selenium.exception.NenhumItemEncontradoErro;
+import br.edu.cruzeirodosul.selenium.exception.ErroNenhumItemEncontrado;
 import com.google.common.collect.Lists;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +16,7 @@ public class SeleniumFinder {
 
     public SeleniumFinder(SeleniumDriver instance) {
         this.instance = instance;
-        this.fluentWait = SeleniumWait.wait(instance.pegarWebDriver(), 10);
+        this.fluentWait = SeleniumWait.wait(instance.pegarWebDriver(), 5);
     }
 
     public List<WebElement> pegarItensPelaTagENome(String tagName, String nome) {
@@ -29,7 +29,7 @@ public class SeleniumFinder {
         }
 
         if (elementsResult.isEmpty()) {
-            throw new NenhumItemEncontradoErro("Com a tag: " + tagName + " e nome: " + nome);
+            throw new ErroNenhumItemEncontrado("Com a tag: " + tagName + " e nome: " + nome);
         }
 
         return elementsResult;
@@ -53,7 +53,7 @@ public class SeleniumFinder {
         );
 
         if (elements.isEmpty()) {
-            throw new NenhumItemEncontradoErro("Com a tag: " + tagName);
+            throw new ErroNenhumItemEncontrado("Com a tag: " + tagName);
         }
         return elements;
     }
@@ -66,7 +66,7 @@ public class SeleniumFinder {
         );
 
         if (element == null) {
-            throw new NenhumItemEncontradoErro("Com a css cass: " + cssClassName);
+            throw new ErroNenhumItemEncontrado("Com a css cass: " + cssClassName);
         }
 
         return element;
@@ -80,7 +80,35 @@ public class SeleniumFinder {
         );
 
         if (element == null) {
-            throw new NenhumItemEncontradoErro("Com o xpath: " + xpath);
+            throw new ErroNenhumItemEncontrado("Com o xpath: " + xpath);
+        }
+
+        return element;
+    }
+
+    public WebElement pegarItemPeloId(String id) {
+        WebElement element = fluentWait.until(
+                driver -> driver.findElement(
+                        By.id(id)
+                )
+        );
+
+        if (element == null) {
+            throw new ErroNenhumItemEncontrado("Com o id: " + id);
+        }
+
+        return element;
+    }
+
+    public WebElement pegarItemPeloName(String name) {
+        WebElement element = fluentWait.until(
+                driver -> driver.findElement(
+                        By.name(name)
+                )
+        );
+
+        if (element == null) {
+            throw new ErroNenhumItemEncontrado("Com o id: " + id);
         }
 
         return element;
@@ -89,7 +117,7 @@ public class SeleniumFinder {
     public void esperarPor(int segundos) {
         try {
             SeleniumWait.wait(instance.pegarWebDriver(), segundos)
-                    .until(w -> w.findElement(By.id("idnaodeveexistir")));
+                    .until(w -> w.findElement(By.id("idQNaoDeveExistir")));
         } catch (Throwable e) {
         }
     }
