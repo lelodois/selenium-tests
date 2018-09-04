@@ -3,10 +3,13 @@ package br.edu.cruzeirodosul.pri;
 import br.edu.cruzeirodosul.selenium.Selenium;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.BlockJUnit4ClassRunner;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+@RunWith(BlockJUnit4ClassRunner.class)
 public class TestPriCenarioSimulador {
 
     @Test
